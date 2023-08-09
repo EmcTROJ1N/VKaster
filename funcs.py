@@ -19,6 +19,7 @@ def loadEnv() -> dict:
         "TOKEN" : os.environ.get("TOKEN"),
         "LOGIN" : os.environ.get("LOGIN"),
         "PASSWORD" : os.environ.get("PASSWORD"),
+        "GROUP_TOKEN" : os.environ.get("GROUP_TOKEN"),
     }
 
 def getNumAtInterval(min: int, max: int) -> int:
@@ -46,6 +47,12 @@ def getAuthData() -> dict:
         data["TOKEN"] = input()
     else:
         print(Fore.RED + "Invalid num")
+    
+    print("Group token (to pass press enter): ", end="")
+    groupToken = input()
+    if groupToken != "":
+        data["GROUP_TOKEN"] = groupToken
+
     return data
 
 def dataCheck(data: dict) -> vk_api.VkApi:
@@ -58,13 +65,14 @@ def dataCheck(data: dict) -> vk_api.VkApi:
             vkSession = vk_api.VkApi(token=data["TOKEN"])
         vk = vkSession.get_api()
         vk.wall.get(count=1)
-        return vkSession
+        return vk
     except:
         return None
 
-def importAllFrom(path: str) -> list:
-    if path[-1] in ["/", "\\"]:
-        path = path[:-1]
-    print("{}/{}/*.py".format(dirname(__file__), path))
-    modules = glob("{}/{}/*.py".format(dirname(__file__), path))
-    return [ basename(f)[:-3] for f in modules if isfile(f) and not f.endswith('__init__.py')]
+def dataGroupCheck(token: str) -> vk_api.VkApi:
+    try:
+        vk = vk_api.VkApi(token=token).get_api()
+        groupInfo = vk.groups.getById()
+        return vk
+    except:
+        return None
