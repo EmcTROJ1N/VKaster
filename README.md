@@ -123,7 +123,7 @@ Don't forget to give the project a star! Thanks again!
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@emctroj1n](https://t.me/EmcTROJ1N) - 19et72@mail.ru
+Your Name - [@pokrov1970](https://t.me/pokrov1970) - 19et72@mail.ru
 
 [Project Link](https://github.com/EmcTROJ1N/VKaster)
 
